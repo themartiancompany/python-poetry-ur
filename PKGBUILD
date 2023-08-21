@@ -6,7 +6,7 @@
 
 _pkgname=poetry
 pkgname=python-poetry
-pkgver=1.6.0
+pkgver=1.6.1
 pkgrel=1
 pkgdesc='Python dependency management and packaging made easy'
 arch=(any)
@@ -58,7 +58,7 @@ optdepends=(
 provides=(poetry)
 _archive="$_pkgname-$pkgver"
 source=("https://github.com/$pkgname/$_pkgname/archive/$pkgver/$_archive.tar.gz")
-sha256sums=('74a4c26663b5722007f45dc428158d5d8a297b969e81d3ae83d199a7ea6c27fb')
+sha256sums=('5653d6905c378703089fb500f7a85b58bf3b439c61cabb377a11df5495407f9f')
 
 prepare() {
   cd "$_archive"

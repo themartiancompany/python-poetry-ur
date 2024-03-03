@@ -7,7 +7,7 @@
 
 _pkgname=poetry
 pkgname=python-poetry
-pkgver=1.8.1
+pkgver=1.8.2
 pkgrel=1
 pkgdesc='Python dependency management and packaging made easy'
 arch=(any)
@@ -53,7 +53,7 @@ optdepends=('python-pip: to use pip with virtual environments')
 provides=(poetry)
 _archive="$_pkgname-$pkgver"
 source=("https://github.com/$pkgname/$_pkgname/archive/$pkgver/$_archive.tar.gz")
-sha256sums=('66f8f97d5d703eb9b1b2de413ba1bdb1cdbd3881816676296ae803a5306942b8')
+sha256sums=('aa95f753a18f5fa1e8d346b4ead6bf2d1a2ce73691666887988af5c181d3a1c6')
 
 prepare() {
 	cd "$_archive"

@@ -1,3 +1,7 @@
+# SPDX-License-Identifier: AGPL-3.0
+#
+# Maintainer: Truocolo <truocolo@aol.com>
+# Maintainer: Pellegrino Prevete (tallero) <pellegrinoprevete@gmail.com>
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 # Contributor: moson <moson@archlinux.org>
 # Contributor: David Runge <dvzrv@archlinux.org>
@@ -10,7 +14,9 @@ pkgname=python-poetry
 pkgver=1.8.3
 pkgrel=1
 pkgdesc='Python dependency management and packaging made easy'
-arch=(any)
+arch=(
+  any
+)
 url=https://python-poetry.org
 license=(MIT)
 _deps=(build
@@ -39,16 +45,19 @@ _deps=(build
        trove-classifiers
        urllib3
        virtualenv)
-depends=(python
-         "${_deps[@]/#/python-}")
-checkdepends=(python-deepdiff  # not mentioned but required
-              python-psutil  # for python-pytest-xdist
-              python-httpretty
-              python-pip  # not mentioned but required
-              python-pytest
-              python-pytest-mock
-              python-pytest-randomly
-              python-pytest-xdist)
+depends=(
+  python
+  "${_deps[@]/#/python-}"
+)
+checkdepends=(
+  python-deepdiff  # not mentioned but required
+  python-psutil  # for python-pytest-xdist
+  python-httpretty
+  python-pip  # not mentioned but required
+  python-pytest
+  python-pytest-mock
+  python-pytest-randomly
+  python-pytest-xdist)
 optdepends=('python-pip: to use pip with virtual environments')
 provides=(poetry)
 _archive="$_pkgname-$pkgver"

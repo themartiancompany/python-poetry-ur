@@ -100,44 +100,53 @@ build() {
   local \
     _poetry \
     _site_packages
-  site_packages=$( \
+  _site_packages=$( \
     python \
       -c \
       "import site; print(site.getsitepackages()[0])")
-  _poetry="${PWD}/test_dir/usr/bin"
+  _poetry="${PWD}/test_dir/usr/bini/${_pkg}"
   cd \
     "${_archive}"
-  python \
+  "${_py}" \
     -m \
       build \
     -wn
   # install to tmp dir for tests and generate completions
-  python \
+  "${_py}" \
     -m \
       installer \
     --destdir=test_dir \
     dist/*.whl
   export \
-    PYTHONPATH="$PWD/test_dir/$site_packages:$PYTHONPATH"
+    PYTHONPATH="${PWD}/test_dir/${_site_packages}:${PYTHONPATH}"
   export \
-    PATH="$PWD/test_dir/usr/bin:$PATH"
+    PATH="${PWD}/test_dir/usr/bin:${PATH}"
   # TODO: python-poetry-completions
-  # poetry completions bash > poetry.bash
-  # poetry completions zsh > poetry.zsh
-  # poetry completions fish > poetry.fish
+  "${_poetry}" \
+    completions \
+      bash > \
+    poetry.bash
+  "${_poetry}" \
+    completions \
+      zsh > \
+      poetry.zsh
+  "${_poetry}" \
+    completions \
+      fish > \
+    poetry.fish
 }
 
 check() {
   local \
-    site_packages
-  site_packages=$( \
+    _site_packages
+  _site_packages=$( \
     python \
       -c \
         "import site; print(site.getsitepackages()[0])")
   cd \
     "${_archive}"
   export \
-    PYTHONPATH="${PWD}/test_dir/${site_packages}:${PYTHONPATH}"
+    PYTHONPATH="${PWD}/test_dir/${_site_packages}:${PYTHONPATH}"
   pytest \
     -vv \
     tests
@@ -155,18 +164,17 @@ package() {
     -Dm0644 \
     -t "${pkgdir}/usr/share/licenses/${pkgname}/" \
     LICENSE
-  # TODO: python-poetry-completions
-  # install \
-  #   -vDm 644 \
-  #   "${_pkgname}.bash" \
-  #   "${pkgdir}/usr/share/bash-completion/completions/${_pkgname}"
-  # install \
-  #   -vDm 644 \
-  #   "${_pkgname}.zsh" \
-  #   "${pkgdir}/usr/share/zsh/site-functions/_${_pkgname}"
-  # install \
-  #   -vDm 644 \
-  #   "${_pkgname}.fish" \
-  #   -t \
-  #   "${pkgdir}/usr/share/fish/vendor_completions.d/"
+  install \
+    -vDm 644 \
+    "${_pkgname}.bash" \
+    "${pkgdir}/usr/share/bash-completion/completions/${_pkgname}"
+  install \
+    -vDm 644 \
+    "${_pkgname}.zsh" \
+    "${pkgdir}/usr/share/zsh/site-functions/_${_pkgname}"
+  install \
+    -vDm 644 \
+    "${_pkgname}.fish" \
+    -t \
+    "${pkgdir}/usr/share/fish/vendor_completions.d/"
 }

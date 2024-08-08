@@ -101,6 +101,8 @@ build() {
     _poetry \
     _prefix \
     _site_packages
+  cd \
+    "${_archive}"
   _site_packages=$( \
     python \
       -c \
@@ -108,10 +110,13 @@ build() {
   _prefix="$( \
     dirname \
       "$(dirname \
-        "${_site_packages}")")"
-  _poetry="${PWD}/test_dir/${_prefix}/bin/${_pkg}"
-  cd \
-    "${_archive}"
+        "$(dirname \
+          "${_site_packages}")")")"
+  _poetry="$( \
+    find \
+      "${PWD}/test_dir" | \
+      grep \
+        "/usr/bin/${_pkg}")"
   "${_py}" \
     -m \
       build \

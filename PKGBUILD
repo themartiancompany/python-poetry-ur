@@ -99,12 +99,17 @@ prepare() {
 build() {
   local \
     _poetry \
+    _prefix \
     _site_packages
   _site_packages=$( \
     python \
       -c \
       "import site; print(site.getsitepackages()[0])")
-  _poetry="${PWD}/test_dir/usr/bini/${_pkg}"
+  _prefix="$( \
+    dirname \
+      "$(dirname \
+        "${_site_packages}")")"
+  _poetry="${PWD}/test_dir/${_prefix}/bin/${_pkg}"
   cd \
     "${_archive}"
   "${_py}" \
@@ -120,8 +125,7 @@ build() {
   export \
     PYTHONPATH="${PWD}/test_dir/${_site_packages}:${PYTHONPATH}"
   export \
-    PATH="${PWD}/test_dir/usr/bin:${PATH}"
-  # TODO: python-poetry-completions
+    PATH="${PWD}/test_dir/${_prefix}/bin:${PATH}"
   "${_poetry}" \
     completions \
       bash > \

@@ -112,11 +112,6 @@ build() {
       "$(dirname \
         "$(dirname \
           "${_site_packages}")")")"
-  _poetry="$( \
-    find \
-      "${PWD}/test_dir" | \
-      grep \
-        "/usr/bin/${_pkg}")"
   "${_py}" \
     -m \
       build \
@@ -131,6 +126,11 @@ build() {
     PYTHONPATH="${PWD}/test_dir/${_site_packages}:${PYTHONPATH}"
   export \
     PATH="${PWD}/test_dir/${_prefix}/bin:${PATH}"
+  _poetry="$( \
+    find \
+      "${PWD}/test_dir" | \
+      grep \
+        "/usr/bin/${_pkg}")"
   "${_poetry}" \
     completions \
       bash > \

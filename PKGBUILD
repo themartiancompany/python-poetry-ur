@@ -10,6 +10,15 @@
 # Contributor: Eli Schwartz <eschwartz@archlinux.org>
 
 _py="python"
+_pyver="$( \
+  "${_py}" \
+    -V | \
+    awk \
+      '{print $2}')"
+_pymajver="${_pyver%.*}"
+_pyminver="${_pymajver#*.}"
+_pynextver="${_pymajver%.*}.$(( \
+  ${_pyminver} + 1))"
 _pkg=poetry
 _pkgname="${_pkg}"
 pkgname="${_py}-${_pkg}"
@@ -51,7 +60,8 @@ _deps=(
   virtualenv
 )
 depends=(
-  "${_py}"
+  "${_py}>=${_pymajver}"
+  "${_py}<${_pynextver}"
   "${_py}-build"
   "${_deps[@]/#/python-}"
 )
